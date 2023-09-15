@@ -1,0 +1,14 @@
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        list = []
+        for num in nums:
+            a = num ** 2
+            list.append(a)
+        list.sort()
+        return list
+solution = Solution()
+nums = [-4,-1,0,3,10]
+result = solution.sortedSquares(nums)
+print(result)
+
+        
