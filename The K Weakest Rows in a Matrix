@@ -1,0 +1,17 @@
+class Solution:
+    def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
+        output = []
+        for l in range(len(mat)):
+            count = 0
+            for i in range(len(mat[l])):
+                if mat[l][i] == 1:
+                    count += 1
+            output.append((count,l))
+        output.sort()
+        weakest_indices = [x[1] for x in output[:k]]
+        return weakest_indices
+solution = Solution()
+mat = [[1,1,0,0,0],[1,1,1,1,0],[1,0,0,0,0],[1,1,0,0,0],[1,1,1,1,1]]
+k = 3
+result = solution.kWeakestRows(mat,k)
+print(result)
