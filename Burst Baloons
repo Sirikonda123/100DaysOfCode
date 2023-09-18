@@ -1,0 +1,31 @@
+class Solution:
+    def maxCoins(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 0:
+             return 0
+        nums = [1] + nums +  [1]
+        memo =  [[0] * (n + 2) for _ in range(n + 2)]
+
+        def burst(left,right):
+            if left > right:
+                return 0
+            
+            if memo[left][right] > 0:
+                return memo[left][right]
+            
+            max_coins = 0
+            for i in range(left,right + 1):
+                coins = nums[left - 1] * nums[i] * nums[right + 1]
+                left_coins = burst(left,i - 1)
+                right_coins = burst(i + 1,right)
+
+                max_coins = max(
+                    max_coins,
+                    left_coins + coins  + right_coins)
+            memo[left][right] = max_coins
+            return max_coins
+        return burst(1,n)
+solution = Solution()
+nums = [3,1,5,8]
+sum = solution.maxCoins(nums)
+print(sum)
