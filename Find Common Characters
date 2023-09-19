@@ -1,0 +1,24 @@
+class Solution:
+    def commonChars(self, words: List[str]) -> List[str]:
+        output = []
+        new_list = []
+        y = len(words)
+        count = [0] * (y + 1)
+        for word in words:
+            for char in word:
+                new_list.append(char)
+        unique_char = set(new_list)
+        rap = list(unique_char)
+        for i in range(len(rap)):
+            count = 0
+            for j in range(len(new_list)):
+                if rap[i] == new_list[j]:
+                    count += 1
+            if count // y > 0:
+                    output.extend([rap[i]] * (count // y))
+        return output
+solution = Solution()
+words = ["bella","label","roller"]
+result = solution.commonChars(words)
+print(result)
+
