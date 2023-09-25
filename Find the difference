@@ -1,0 +1,22 @@
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        new_list = []
+        for k in range(len(t)):
+            new_list.append(t[k])
+        if len(s) <= 0:
+            return t
+        for i in range(len(s)):
+            found = False
+            for j in range(len(new_list)):
+                if s[i] == new_list[j]:
+                    new_list.pop(j)
+                    found = True
+                    break
+            if not found:
+                return s[i]
+        return new_list[0]
+solution = Solution()
+s = "abcd"
+t = "abcde"
+result = solution.findTheDifference(s,t)
+print(result)
