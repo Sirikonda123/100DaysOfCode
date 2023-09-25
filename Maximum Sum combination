@@ -1,0 +1,36 @@
+class Solution {
+    static List<Integer> maxCombinations(int N, int K, int A[], int B[]) {
+           List<Integer> ans = new ArrayList<>();
+        Arrays.sort(A);
+        Arrays.sort(B);
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> (b[0] - a[0]));
+        Set<String> mySet = new HashSet<>();
+
+        pq.offer(new int[]{A[N - 1] + B[N - 1], N - 1, N - 1});
+        mySet.add((N - 1) + "-" + (N - 1));
+
+        while (K > 0) {
+            int[] temp = pq.poll();
+            ans.add(temp[0]);
+            int i = temp[1];
+            int j = temp[2];
+
+            if (i > 0 && !mySet.contains((i - 1) + "-" + j)) {
+                int newSum = A[i - 1] + B[j];
+                pq.offer(new int[]{newSum, i - 1, j});
+                mySet.add((i - 1) + "-" + j);
+            }
+
+            if (j > 0 && !mySet.contains(i + "-" + (j - 1))) {
+                int newSum = A[i] + B[j - 1];
+                pq.offer(new int[]{newSum, i, j - 1});
+                mySet.add(i + "-" + (j - 1));
+            }
+
+            K--;
+        }
+
+        return ans;
+    }
+}
