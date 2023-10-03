@@ -1,0 +1,23 @@
+class Solution:
+    def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+
+        def gcd(a, b):
+            while b:
+                a, b = b, a % b
+            return a
+
+        current = head
+
+        while current and current.next:
+            a, b = current.val, current.next.val
+            common_divisor = gcd(a, b)
+
+            new_node = ListNode(common_divisor)
+            new_node.next = current.next
+            current.next = new_node
+
+            current = new_node.next  # Move to the next pair
+
+        return head
